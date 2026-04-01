@@ -1,6 +1,6 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════════════════════════
-# xxxjihad VPN Manager - Professional Installer
+# xxxjihad VPN Manager - Professional Installer v3.0
 # ═══════════════════════════════════════════════════════════════════════════════
 
 # Colors
@@ -31,36 +31,41 @@ echo -e "  ${C_BLUE}Starting installation...${C_RESET}"
 echo ""
 
 # 1. Install basic dependencies first
-echo -e "  ${C_YELLOW}[1/4] Installing basic dependencies (curl, wget, git)...${C_RESET}"
+echo -e "  ${C_YELLOW}[1/3] Installing basic dependencies (curl, wget, git)...${C_RESET}"
 apt-get update -qq > /dev/null 2>&1
 apt-get install -y -qq curl wget git > /dev/null 2>&1
 echo -e "  ${C_GREEN}[✓] Dependencies installed.${C_RESET}"
 
-# 2. Download the main script
-echo -e "  ${C_YELLOW}[2/4] Downloading main script...${C_RESET}"
-REPO_URL="https://raw.githubusercontent.com/mahmmedateer67-hash/xxxjihad-vpn/master/menu.sh"
+# 2. Download the main script and save it as 'xxxjihad'
+echo -e "  ${C_YELLOW}[2/3] Downloading main script to /usr/local/bin/xxxjihad...${C_RESET}"
+REPO_URL="https://raw.githubusercontent.com/mahmmedateer67-hash/xxxjihad-vpn-manager/master/menu.sh"
 TARGET_PATH="/usr/local/bin/xxxjihad"
 
+# Remove old versions if they exist
+rm -f "$TARGET_PATH"
+rm -f "/usr/local/bin/menu"
+
+# Download using wget
 wget -4 -q -O "$TARGET_PATH" "$REPO_URL"
-if [[ $? -ne 0 ]]; then
-    echo -e "  ${C_RED}[✗] Failed to download script. Checking alternative URL...${C_RESET}"
+
+# Verify download
+if [[ ! -f "$TARGET_PATH" ]] || [[ ! -s "$TARGET_PATH" ]]; then
+    echo -e "  ${C_RED}[✗] Failed to download with wget. Trying curl...${C_RESET}"
     curl -fsSL -4 -o "$TARGET_PATH" "$REPO_URL"
 fi
 
-if [[ ! -f "$TARGET_PATH" ]]; then
+if [[ ! -f "$TARGET_PATH" ]] || [[ ! -s "$TARGET_PATH" ]]; then
     echo -e "  ${C_RED}[✗] Critical Error: Could not download the script.${C_RESET}"
     exit 1
 fi
 
+# Set permissions
 chmod +x "$TARGET_PATH"
-echo -e "  ${C_GREEN}[✓] Script downloaded and permissions set.${C_RESET}"
+echo -e "  ${C_GREEN}[✓] Script installed successfully as 'xxxjihad'.${C_RESET}"
 
-# 3. Create a symbolic link for 'menu' as well (optional but helpful)
-ln -sf "$TARGET_PATH" /usr/local/bin/menu
-
-# 4. Run initial setup from the script itself
-echo -e "  ${C_YELLOW}[3/4] Running system environment setup...${C_RESET}"
-# We run it with --install-setup flag to trigger the initial_setup function
+# 3. Run initial setup
+echo -e "  ${C_YELLOW}[3/3] Running system environment setup...${C_RESET}"
+# Run the script with the setup flag
 bash "$TARGET_PATH" --install-setup
 
 echo ""
