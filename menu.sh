@@ -47,7 +47,7 @@ C_INFO=$C_TEAL
 # ─────────────────────────────────────────────────────────────────────────────
 # SECTION 2: GLOBAL VARIABLES & PATHS
 # ─────────────────────────────────────────────────────────────────────────────
-SCRIPT_VERSION="2.0.0"
+SCRIPT_VERSION="2.1.0"
 DEVELOPER_NAME="xxxjihad"
 TELEGRAM_CHANNEL="https://t.me/XxXjihad"
 
@@ -427,7 +427,14 @@ ensure_directories() {
 }
 
 initial_setup() {
+    # Check if already installed
     if [[ -f "$INSTALL_FLAG_FILE" ]]; then
+        # If we are NOT in install-setup mode, just return
+        if [[ "${1:-}" != "--install-setup" ]]; then
+            return 0
+        fi
+        # If we ARE in install-setup mode, we can skip or re-run parts
+        # For now, let's just return to avoid double installation
         return 0
     fi
 
@@ -2308,21 +2315,24 @@ get_server_ip
 # Ensure directories exist
 ensure_directories
 
-# Handle first-time setup
+# Handle first-time setup or manual setup trigger
 if [[ "${1:-}" == "--install-setup" ]]; then
-    initial_setup
+    initial_setup "--install-setup"
     exit 0
 fi
 
-# Run initial setup if needed
+# Run initial setup if needed (silent check)
 initial_setup
 
-# Ensure terminal is interactive
+# Ensure terminal is interactive for the menu
 if [[ ! -t 0 ]]; then
     echo -e "${C_RED} Error: This script requires an interactive terminal.${C_RESET}"
     echo -e "${C_YELLOW} Please run it directly: xxxjihad${C_RESET}"
     exit 1
 fi
 
+# Disable exit on error for the interactive menu to prevent crashes
+set +e
 # Launch main menu
 main_menu
+set -e
