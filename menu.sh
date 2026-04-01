@@ -1989,7 +1989,7 @@ uninstall_script() {
     echo -e "  ${C_RED}${C_BOLD}╠═══════════════════════════════════════════════════════════╣${C_RESET}"
     echo -e "  ${C_RED}${C_BOLD}║${C_RESET}                                                           ${C_RED}${C_BOLD}║${C_RESET}"
     echo -e "  ${C_RED}${C_BOLD}║${C_RESET}  ${C_YELLOW}This will PERMANENTLY remove:${C_RESET}                          ${C_RED}${C_BOLD}║${C_RESET}"
-    echo -e "  ${C_RED}${C_BOLD}║${C_RESET}  ${C_WHITE} - The main 'menu' command${C_RESET}                              ${C_RED}${C_BOLD}║${C_RESET}"
+    echo -e "  ${C_RED}${C_BOLD}║${C_RESET}  ${C_WHITE} - The main 'xxxjihad' command${C_RESET}                              ${C_RED}${C_BOLD}║${C_RESET}"
     echo -e "  ${C_RED}${C_BOLD}║${C_RESET}  ${C_WHITE} - All configuration & user data (${DB_DIR})${C_RESET}     ${C_RED}${C_BOLD}║${C_RESET}"
     echo -e "  ${C_RED}${C_BOLD}║${C_RESET}  ${C_WHITE} - DNSTT service and all DNS records${C_RESET}                    ${C_RED}${C_BOLD}║${C_RESET}"
     echo -e "  ${C_RED}${C_BOLD}║${C_RESET}  ${C_WHITE} - All SSH VPN user accounts (optional)${C_RESET}                 ${C_RED}${C_BOLD}║${C_RESET}"
@@ -2067,9 +2067,9 @@ uninstall_script() {
     echo -e "  ${C_DIM}  Removed: ${DB_DIR}/${C_RESET}"
 
     # Remove the menu command
-    rm -f "$(command -v menu 2>/dev/null)" 2>/dev/null || true
-    rm -f "/usr/local/bin/menu" 2>/dev/null || true
-    echo -e "  ${C_DIM}  Removed: /usr/local/bin/menu${C_RESET}"
+    rm -f "$(command -v xxxjihad 2>/dev/null)" 2>/dev/null || true
+    rm -f "/usr/local/bin/xxxjihad" 2>/dev/null || true
+    echo -e "  ${C_DIM}  Removed: /usr/local/bin/xxxjihad${C_RESET}"
 
     # Send final report
     log_action "SCRIPT_UNINSTALL" "complete [${DEVELOPER_NAME}]"
@@ -2081,7 +2081,7 @@ uninstall_script() {
     echo -e "  ${C_GREEN}${C_BOLD}║   Script has been completely uninstalled.                  ║${C_RESET}"
     echo -e "  ${C_GREEN}${C_BOLD}║   All data, services, and DNS records have been removed.   ║${C_RESET}"
     echo -e "  ${C_GREEN}${C_BOLD}║                                                           ║${C_RESET}"
-    echo -e "  ${C_GREEN}${C_BOLD}║   The 'menu' command will no longer work.                  ║${C_RESET}"
+    echo -e "  ${C_GREEN}${C_BOLD}║   The 'xxxjihad' command will no longer work.                  ║${C_RESET}"
     echo -e "  ${C_GREEN}${C_BOLD}║                                                           ║${C_RESET}"
     echo -e "  ${C_GREEN}${C_BOLD}╚═══════════════════════════════════════════════════════════╝${C_RESET}"
     echo ""
