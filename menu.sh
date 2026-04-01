@@ -102,7 +102,7 @@ get_server_ip() {
 check_root() {
     if [[ $EUID -ne 0 ]]; then
         echo -e "${C_RED}${C_BOLD} ERROR: This script must be run as root!${C_RESET}"
-        echo -e "${C_YELLOW} Please run: sudo bash menu.sh${C_RESET}"
+        echo -e "${C_YELLOW} Please run: xxxjihad${C_RESET}"
         exit 1
     fi
 }
@@ -2309,7 +2309,7 @@ get_server_ip
 ensure_directories
 
 # Handle first-time setup
-if [[ "$1" == "--install-setup" ]]; then
+if [[ "${1:-}" == "--install-setup" ]]; then
     initial_setup
     exit 0
 fi
@@ -2320,7 +2320,7 @@ initial_setup
 # Ensure terminal is interactive
 if [[ ! -t 0 ]]; then
     echo -e "${C_RED} Error: This script requires an interactive terminal.${C_RESET}"
-    echo -e "${C_YELLOW} Please run it directly: sudo bash menu.sh${C_RESET}"
+    echo -e "${C_YELLOW} Please run it directly: xxxjihad${C_RESET}"
     exit 1
 fi
 
